@@ -43,9 +43,9 @@ ndef_record* ndef_parse(char* buffer, size_t offset) {
 ndef_record* ndef_create(
         uint8_t tnf, bool is_begin, bool is_end, bool is_chunk,
         bool is_short, bool has_id,
-        char* type, uint8_t type_length,
+        const char* type, uint8_t type_length,
         char* id, uint8_t id_length,
-        char* payload, uint32_t payload_length) {
+        const char* payload, uint32_t payload_length) {
     int i, j;
     ndef_record* record = malloc(sizeof(ndef_record));
     if (record == NULL) {
