@@ -5,6 +5,8 @@
 #include "ndef.h"
 
 struct ndef_record* ndef_parse(char* buffer, size_t offset) {
+    (void)offset;
+
     int i, j;
     struct ndef_record* record = malloc(sizeof(struct ndef_record));
     if (record == NULL) {
@@ -110,15 +112,17 @@ error:
     return NULL;
 }
 
-struct ndef_record* ndef_destroy_buffer(ndef_record*) {
+ndef_record* ndef_destroy_buffer(ndef_record* record) {
     if (record->buffer != NULL) {
         free(record->buffer);
     }
     free(record);
+    return record;
 }
 
-struct ndef_record* ndef_destroy(ndef_record*) {
+ndef_record* ndef_destroy(ndef_record* record) {
     free(record);
+    return record;
 }
 
 uint8_t ndef_tnf(struct ndef_record* record) {

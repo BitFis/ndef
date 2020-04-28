@@ -13,7 +13,7 @@ struct ndef_message {
 
 // A zero-copy data structure for storing ndef records. All fields should be
 // accessed using accessors defined below.
-struct ndef_record {
+typedef struct ndef_record {
     char* buffer;
     size_t length;
 
@@ -25,7 +25,7 @@ struct ndef_record {
 
     uint32_t payload_length;
     size_t payload_offset;
-};
+} ndef_record;
 
 struct ndef_record* ndef_parse(char* buffer, size_t offset);
 struct ndef_record* ndef_create(
