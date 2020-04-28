@@ -1,6 +1,10 @@
 #ifndef __NDEF_NDEF_H__
 #define __NDEF_NDEF_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define NO_ID 0
 
 #include <stdbool.h>
@@ -27,22 +31,26 @@ typedef struct ndef_record {
     size_t payload_offset;
 } ndef_record;
 
-struct ndef_record* ndef_parse(char* buffer, size_t offset);
-struct ndef_record* ndef_create(
+ndef_record* ndef_parse(char* buffer, size_t offset);
+ndef_record* ndef_create(
         uint8_t tnf, bool is_begin, bool is_end, bool is_chunk,
         bool is_short, bool has_length,
         char* type, uint8_t type_length,
         char* id, uint8_t id_length,
         char* payload, uint32_t payload_length);
 
-struct ndef_record* ndef_destroy_buffer(ndef_record*);
-struct ndef_record* ndef_destroy(ndef_record*);
+ndef_record* ndef_destroy_buffer(ndef_record*);
+ndef_record* ndef_destroy(ndef_record*);
 
-uint8_t ndef_tnf(struct ndef_record*);
-bool ndef_is_message_begin(struct ndef_record*);
-bool ndef_is_message_end(struct ndef_record*);
-bool ndef_is_chunk(struct ndef_record*);
-bool ndef_is_short_record(struct ndef_record*);
-bool ndef_has_id_length(struct ndef_record*);
+uint8_t ndef_tnf(ndef_record*);
+bool ndef_is_message_begin(ndef_record*);
+bool ndef_is_message_end(ndef_record*);
+bool ndef_is_chunk(ndef_record*);
+bool ndef_is_short_record(ndef_record*);
+bool ndef_has_id_length(ndef_record*);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -4,11 +4,11 @@
 
 #include "ndef.h"
 
-struct ndef_record* ndef_parse(char* buffer, size_t offset) {
+ndef_record* ndef_parse(char* buffer, size_t offset) {
     (void)offset;
 
     int i, j;
-    struct ndef_record* record = malloc(sizeof(struct ndef_record));
+    ndef_record* record = malloc(sizeof(ndef_record));
     if (record == NULL) {
         return NULL;
     }
@@ -40,14 +40,14 @@ struct ndef_record* ndef_parse(char* buffer, size_t offset) {
     return record;
 }
 
-struct ndef_record* ndef_create(
+ndef_record* ndef_create(
         uint8_t tnf, bool is_begin, bool is_end, bool is_chunk,
         bool is_short, bool has_id,
         char* type, uint8_t type_length,
         char* id, uint8_t id_length,
         char* payload, uint32_t payload_length) {
     int i, j;
-    struct ndef_record* record = malloc(sizeof(struct ndef_record));
+    ndef_record* record = malloc(sizeof(ndef_record));
     if (record == NULL) {
         return NULL;
     }
@@ -125,26 +125,26 @@ ndef_record* ndef_destroy(ndef_record* record) {
     return record;
 }
 
-uint8_t ndef_tnf(struct ndef_record* record) {
+uint8_t ndef_tnf(ndef_record* record) {
     return record->buffer[0] & 0x03;
 }
 
-bool ndef_is_message_begin(struct ndef_record* record) {
+bool ndef_is_message_begin(ndef_record* record) {
     return record->buffer[0] & 0x80;
 }
 
-bool ndef_is_message_end(struct ndef_record* record) {
+bool ndef_is_message_end(ndef_record* record) {
     return record->buffer[0] & 0x40;
 }
 
-bool ndef_is_chunk(struct ndef_record* record) {
+bool ndef_is_chunk(ndef_record* record) {
     return record->buffer[0] & 0x20;
 }
 
-bool ndef_is_short_record(struct ndef_record* record) {
+bool ndef_is_short_record(ndef_record* record) {
     return record->buffer[0] & 0x10;
 }
 
-bool ndef_has_id_length(struct ndef_record* record) {
+bool ndef_has_id_length(ndef_record* record) {
     return record->buffer[0] & 0x08;
 }
